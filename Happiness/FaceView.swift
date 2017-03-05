@@ -60,11 +60,11 @@ class FaceView: UIView
         let mouthHeight = faceRadius / Scaling.FaceRadiusToMouthHeightRadiusRatio
         let mouthVerticalOffset = faceRadius / Scaling.FaceRadiusToMouthOffSetRadiusRatio
         
-        let smileHight = CGFloat(max(min(fractionOfMaxSmile, 1), -1)) * mouthHeight
+        let smileHeight = CGFloat(max(min(fractionOfMaxSmile, 1), -1)) * mouthHeight
         
         let start = CGPoint(x: faceCenter.x - mouthWidth / 2, y: faceCenter.y + mouthVerticalOffset)
         let end = CGPoint(x: start.x + mouthWidth, y: start.y)
-        let cp1 = CGPoint(x: start.x + mouthWidth / 3, y: start.y + smileHight)
+        let cp1 = CGPoint(x: start.x + mouthWidth / 3, y: start.y + smileHeight)
         let cp2 = CGPoint(x: end.x - mouthWidth / 3, y: cp1.y)
         
         let path = UIBezierPath()
@@ -90,7 +90,7 @@ class FaceView: UIView
         let smiliness = 0.75
         let smilePath = bezierPathForSmile(fractionOfMaxSmile: smiliness)
         smilePath.stroke()
-                
+        
     }
         
     
