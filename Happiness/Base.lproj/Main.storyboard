@@ -24,6 +24,14 @@
                             <view contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="pRs-id-D8l" customClass="FaceView" customModule="Happiness" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="scale">
+                                        <real key="value" value="0.90000000000000002"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="lineWidth">
+                                        <real key="value" value="3"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -34,6 +42,9 @@
                             <constraint firstItem="pRs-id-D8l" firstAttribute="leading" secondItem="clc-h1-smC" secondAttribute="leading" id="rAr-Fs-ejE"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="faceView" destination="pRs-id-D8l" id="12d-u1-rVb"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UdY-9K-kem" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

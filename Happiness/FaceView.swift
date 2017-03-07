@@ -8,10 +8,18 @@
 
 import UIKit
 
+protocol FaceViewDataSource: class {
+    func smilinessForFaceView(sender: FaceView) -> Double?
+}
+
+@IBDesignable
 class FaceView: UIView
 {
+    @IBInspectable
     var lineWidth: CGFloat = 3 { didSet {setNeedsDisplay() } }
+    @IBInspectable
     var color: UIColor = UIColor.blue { didSet {setNeedsDisplay() } }
+    @IBInspectable
     var scale: CGFloat = 0.90 { didSet {setNeedsDisplay() } }
     
     
@@ -20,8 +28,36 @@ class FaceView: UIView
     }
     
     var faceRadius: CGFloat {
-        return min(bounds.size.width, bounds.size.height)/2 * 0.90
+        return min(bounds.size.width, bounds.size.height)/2 * scale
     }
+    
+    weak var dataSouce: FaceViewDataSource?
+    
+    
+    func scale(gesture: UIPinchGestureRecognizer) {
+        if gesture.state == .changed {
+            scale *= gesture.scale
+            gesture.scale = 1
+        }
+    }
+    
+    override func draw(_ rect: CGRect) {
+        
+        let facePath = UIBezierPath(arcCenter: faceCenter, radius: faceRadius, startAngle: 0, endAngle: CGFloat(2*M_PI), clockwise: true)
+        
+        facePath.lineWidth = lineWidth
+        color.set()
+        facePath.stroke()
+        
+        bezierPathForEye(whichEye: .Left).stroke()
+        bezierPathForEye(whichEye: .Right).stroke()
+        
+        let smiliness = dataSouce?.smilinessForFaceView(sender: self) ?? 0.0
+        let smilePath = bezierPathForSmile(fractionOfMaxSmile: smiliness)
+        smilePath.stroke()
+        
+    }
+        
     
     private struct Scaling {
         static let FaceRadiusToEyeRadiusRatio: CGFloat = 10
@@ -75,24 +111,6 @@ class FaceView: UIView
         return path
         
     }
-    
-    override func draw(_ rect: CGRect) {
-        
-        let facePath = UIBezierPath(arcCenter: faceCenter, radius: faceRadius, startAngle: 0, endAngle: CGFloat(2*M_PI), clockwise: true)
-        
-        facePath.lineWidth = 3
-        color.set()
-        facePath.stroke()
-        
-        bezierPathForEye(whichEye: .Left).stroke()
-        bezierPathForEye(whichEye: .Right).stroke()
-        
-        let smiliness = 0.75
-        let smilePath = bezierPathForSmile(fractionOfMaxSmile: smiliness)
-        smilePath.stroke()
-        
-    }
-        
     
 
 }
