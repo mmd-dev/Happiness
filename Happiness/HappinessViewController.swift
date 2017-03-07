@@ -22,7 +22,8 @@ class HappinessViewController: UIViewController, FaceViewDataSource
     @IBOutlet weak var faceView: FaceView!{
         didSet{
             faceView.dataSouce = self
-            faceView.addGestureRecognizer(UIPinchGestureRecognizer(target: faceView, action: "scale:"))
+            faceView.addGestureRecognizer(UIPinchGestureRecognizer(target: faceView, action: #selector(FaceView.scale(gesture:))))
+                //"scale:"))
         }
     }
     
