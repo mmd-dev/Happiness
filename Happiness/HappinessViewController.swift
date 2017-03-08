@@ -56,9 +56,23 @@ class HappinessViewController: UIViewController, FaceViewDataSource
         didSet{
             faceView.dataSouce = self
             faceView.addGestureRecognizer(UIPinchGestureRecognizer(target: faceView, action: #selector(FaceView.scale(gesture:))))
-            //为什么这里target用faceView，为什么scale不能写在controller里面然后self.cale
+            // 为什么这里target用faceView，为什么scale不能写在controller里面然后self.cale
+            
+            // target 可以是self，也可以是faceView
+            
+            // (1) 这边用faceView是因为FaceView 里面实现了scale(gesture:)方法
+            
+            // (2) 假如这边的target 是self，那么，后面的action应该这么写 #selector(self.scale(gesture:))
+            //     然后在HappinessViewController里面实现 scale(gesture: UIPinchGestureRecognizer) 方法
+            
+            // ** 扩展，甚至这边可以用一个别的实例来做target，有兴趣可以问我，但是比较超纲，可以留在以后问
+            
 //            faceView.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(self.changeHappiness(gesture:))))
             //为什么这里target用self
+            
+            // 这边用self 是因为happiness 这个变量存储于HappinessViewController
+            //
+            // 当然也可以用faceView做target，都可以，但是超纲，可以留在以后问
         }
     
     }
